@@ -1,0 +1,138 @@
+1. As a user, I need an API to create a friend connection between two email addresses.
+Problems in JSon Code could be something like error in string value for web domain. The email addresses are not valid. 
+
+{
+  friends:
+    [
+      'tim@email.co'
+      'nick@email.co'
+    ]
+}
+
+{
+  friends:
+    [
+      'tim123email.co'
+      'nick129email.co'
+    ]
+}
+
+2. As a user, I need an API to retrieve the friends list for an email address.
+
+Problems include the email address not valid
+The problem include 
+{
+  email: 'tim123@emai.com'
+}
+ or 
+ {
+ email: 'hank@123mail.co'
+The API will return this error 
+
+{
+  "success": false ,
+  "friends" :
+    [
+      'tim123@emai.com'
+    ],
+  "count" : null   
+}
+
+3. As a user, I need an API to retrieve the common friends list between two email addresses.
+
+Problems include that the email address is not valid based on string or character differences. 
+{
+  "success": false ,
+  "friends" :
+    [
+      'Email address not valid'
+    ],
+  "error": tim@123emai.co is not valid.
+  
+}
+
+4. As a user, I need an API to subscribe to updates from an email address.
+
+Please note that "subscribing to updates" is NOT equivalent to "adding a friend connection".
+Errors: Invalid requestor or target email address
+{
+  "requestor": "jennifer.z}@fastmail.com",
+  "target": "tim@email.com"
+}
+
+api return as follows
+{
+"success": false
+}
+
+or 
+
+
+{
+  "requestor": "jennifer.z@fastmail.com",
+  "target": "tim@email.1"
+}
+
+api return as follows
+{
+"success": false
+}
+
+5. As a user, I need an API to block updates from an email address.
+
+Suppose "andy@example.com" blocks "john@example.com":
+
+if they are connected as friends, then "andy" will no longer receive notifications from "john"
+if they are not connected as friends, then no new friends connection can be added.
+
+Errors include such api code
+{
+  "requestor": "andy@em1il.com",
+  "target": "john@example.com"
+}
+
+which returns such api result 
+{
+"success": false,
+}
+
+
+or 
+{
+"requestor": "andy@email.com",
+"target": "tom@ema!l.com"
+}
+
+which returns such api result 
+{
+"success": false,
+
+6. 6. As a user, I need an API to retrieve all email addresses that can receive updates from an email address.
+
+Eligibility for receiving updates from i.e. "john@example.com":
+
+- has not blocked updates from "john@example.com", and
+- at least one of the following:
+- has a friend connection with "john@example.com"
+- has subscribed to updates from "john@example.com"
+- has been @mentioned in the update
+
+Ineligibility Conditions : 
+1. updates blocked from john@eexample.com or 
+2. has not blocked updates from john@example.com and no friend connection with john@example.com  
+3. has not blocked updates from john@example.com and have not subscription to updates from john@example.com
+4. has not blocked updates from john@example.com and not been @mentioned in the update. 
+
+Such API errors can happen as a result of ineglibility conditions
+{
+  "sender":  "john@example.com",
+  "update": This is what happened today!
+}
+Such Api errors can happen :
+
+{
+  "success": false
+  "invalid email recipients": "joe@example.com", "sally@example.com"  
+    
+}
+
